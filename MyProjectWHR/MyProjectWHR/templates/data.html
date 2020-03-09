@@ -1,0 +1,53 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{title}}</h2>
+<h3>{{ message }}</h3>
+
+<div class="row">
+    <div class="col-md-7">
+        The World Happiness Report is a landmark survey of the state of global happiness.
+        The reports review the state of happiness in the world today and show how the new science
+        of happiness explains personal and national variations in happiness.
+        In my idea, it's interesting to know what countries or regions rank the highest in overall happiness
+        or did any country experience a significant increase or decrease in happiness by the years 2016, 2018 and 2019?
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4"> <img src="https://i.ytimg.com/vi/YsQPqwzg8is/maxresdefault.jpg" width="200" height="120"> </div>
+    <div class="col-md-4"> <img src="https://www.abc.net.au/news/image/5559226-16x9-700x394.jpg" width="200" height="120"> </div>
+    <div class="col-md-4"> <img src="https://previews.123rf.com/images/prawny/prawny0809/prawny080900099/3618093-happy-world-globe-surrounded-by-flags-Stock-Photo.jpg" width="120" height="120"> </div>
+</div>
+<br />
+
+<div class="row" style="">
+    <div class="col-md-4"><strong>Dataset's name</strong></div>
+    <div class="col-md-4"><strong>Short explanation</strong></div>
+    <div class="col-md-4"><strong>Link to the dataset</strong></div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-4">World Happiness Report 2016</div>
+    <div class="col-md-4">Happiness rank and scores by country, 2016</div>
+    <div class="col-md-4"><a href="{{ url_for('WHR2016') }}">Go to World Happiness Report 2016</a></div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-4">World Happiness Report 2018</div>
+    <div class="col-md-4">Happiness rank and scores by country, 2018</div>
+    <div class="col-md-4"><a href="{{ url_for('WHR2018') }}">Go to World Happiness Report 2018</a></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">World Happiness Report 2019</div>
+    <div class="col-md-4">Happiness rank and scores by country, 2019</div>
+    <div class="col-md-4"><a href="{{ url_for('WHR2019') }}">Go to World Happiness Report 2019</a></div>
+</div>
+
+
+
+    {% endblock %}

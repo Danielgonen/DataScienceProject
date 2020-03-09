@@ -1,0 +1,5 @@
+Flask
+pandas
+MatPlotLib
+flask_wtf
+requests
