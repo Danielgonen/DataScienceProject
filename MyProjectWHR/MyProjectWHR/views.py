@@ -143,14 +143,7 @@ def Login():
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
             flash('Login approved!')
-            return render_template(
-                'PictureAlbum.html',
-                title='were to go if login is good!',
-                year=datetime.now().year,
-                message='Welcome to my picture album'
-                )
-
-            
+            return redirect('Query')
         else:
             flash('Error in - Username and/or password')
    
@@ -161,6 +154,7 @@ def Login():
         year=datetime.now().year,
         repository_name='Pandas',
         )
+
 
 @app.route('/data')
 def data():
