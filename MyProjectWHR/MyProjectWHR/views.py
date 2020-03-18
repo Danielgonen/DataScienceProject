@@ -77,28 +77,36 @@ def Query():
 
     Name = None
     Country = ''
-    capital = ''
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
+    rank = ''
+    
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
     df = df.set_index('Country')
 
     form = QueryFormStructure(request.form)
-     
+    raw_data_table = ''
+    
     if (request.method == 'POST' ):
+        if (form.year.data == '2016'):
+            df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
+        elif (form.year.data == '2018'):
+            df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2018.csv'))
+        elif (form.year.data == '2019'):
+            df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2019.csv'))
+
+        raw_data_table = df.to_html(classes = 'table table-hover')
+        df = df.set_index('Country')
         name = form.name.data
         Country = name
         if (name in df.index):
-            capital = df.loc[name,'Capital']
+            rank = df.loc[name,'Happiness Rank']
         else:
-            capital = name + ', no such country'
+            rank = name + ', no such country'
         form.name.data = ''
 
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\capitals.csv'))
-
-    raw_data_table = df.to_html(classes = 'table table-hover')
 
     return render_template('Query.html', 
             form = form, 
-            name = capital, 
+            name = rank, 
             Country = Country,
             raw_data_table = raw_data_table,
             title='Query by the user',

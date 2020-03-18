@@ -6,8 +6,8 @@ from datetime import datetime
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms import Form, BooleanField, PasswordField
-from wtforms import TextField, TextAreaField, SelectField, DateField
+from wtforms import Form, BooleanField, PasswordField, IntegerField, SelectField
+from wtforms import TextField, TextAreaField, SelectField
 from wtforms import validators, ValidationError
 
 from wtforms.validators import DataRequired
@@ -23,9 +23,10 @@ from wtforms.validators import DataRequired
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
     name   = StringField('Country Name:  ' , validators = [DataRequired()])
+    year = SelectField('Year: ', choices = [('2016', '2016'),('2018', '2018'),('2019', '2019')])
     submit = SubmitField('Submit')
-
-
+    
+    
 
 
 ## This class have the fields that are part of the Login form.
@@ -58,10 +59,11 @@ class LoginFormStructure(FlaskForm):
 class UserRegistrationFormStructure(FlaskForm):
     FirstName  = StringField('First name:  ' , validators = [DataRequired()])
     LastName   = StringField('Last name:  ' , validators = [DataRequired()])
-    PhoneNum   = StringField('Phone number:  ' , validators = [DataRequired()])
+    PhoneNum   = IntegerField('Phone number:  ' , validators = [DataRequired()])
     EmailAddr  = StringField('E-Mail:  ' , validators = [DataRequired()])
     username   = StringField('User name:  ' , validators = [DataRequired()])
     password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
+    date = IntegerField('Date: ', validators = [DataRequired()])
     submit = SubmitField('Submit')
 
 ## This class have the fields that the user can set, to have the query parameters for analysing the data

@@ -4,23 +4,34 @@
 
 <h2>{{title}}</h2>
 
-<p>This page will enable the user to input a data field</p>
+<div class="row">
+    <div class="col-md-6">
+        In this page you need to choose a year and country and the rank of the conutry in this year appears on the screen.
+        <strong>PAY ATTENTION:</strong> you need to write the name of the country perfectly (with a big letter at the begining)
+        It's Important!
+    </div>
+</div>
 
+<br />
 
 <form method=post>
     {{ form.csrf }}
     <table>
         <tr>
+            <td class="input text"> {{ form.year.label }} </td>
+            <td>                    {{ form.year }}       </td>
+        </tr>
+        <tr>
             <td class="input text"> {{ form.name.label }} </td>
             <td>                    {{ form.name }}       </td>
         </tr>
         <tr>
-            <td class="input submit"> <input type="submit" value="Capital"> </td>
+            <td class="input submit"> <input type="submit" value="Search"> </td>
         </tr>
     </table>
 </form>
 
-<p><h1>Capital of {{Country}} is : <b>{{name}}</b></h1></p>
+<p><h1>Rank of {{Country}} is : <b>{{name}}</b></h1></p>
 
 <h3> Table is </h3>
 {{ raw_data_table | safe}}
