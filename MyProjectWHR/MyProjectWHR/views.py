@@ -78,6 +78,7 @@ def Query():
     Name = None
     Country = ''
     rank = ''
+    Years = ''
     
     df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
     df = df.set_index('Country')
@@ -96,6 +97,7 @@ def Query():
         raw_data_table = df.to_html(classes = 'table table-hover')
         df = df.set_index('Country')
         name = form.name.data
+        Years = form.year.data
         Country = name
         if (name in df.index):
             rank = df.loc[name,'Happiness Rank']
@@ -107,6 +109,7 @@ def Query():
     return render_template('Query.html', 
             form = form, 
             name = rank, 
+            Years = Years,
             Country = Country,
             raw_data_table = raw_data_table,
             title='Query by the user',
