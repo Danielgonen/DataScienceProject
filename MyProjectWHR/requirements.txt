@@ -3,3 +3,4 @@ pandas
 MatPlotLib
 flask_wtf
 requests
+wtforms.fields.html5

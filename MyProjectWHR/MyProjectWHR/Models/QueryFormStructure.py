@@ -8,6 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms import Form, BooleanField, PasswordField, IntegerField, SelectField
 from wtforms import TextField, TextAreaField, SelectField
+from wtforms.fields.html5 import DateField
 from wtforms import validators, ValidationError
 
 from wtforms.validators import DataRequired
@@ -63,7 +64,7 @@ class UserRegistrationFormStructure(FlaskForm):
     EmailAddr  = StringField('E-Mail:  ' , validators = [DataRequired()])
     username   = StringField('User name:  ' , validators = [DataRequired()])
     password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
-    date = StringField('Date: ', validators = [DataRequired()])
+    date = DateField('Date: ', format='%Y-%m-%d', validators = [DataRequired()])
     submit = SubmitField('Submit')
 
 ## This class have the fields that the user can set, to have the query parameters for analysing the data
