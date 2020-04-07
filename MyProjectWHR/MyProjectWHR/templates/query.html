@@ -6,9 +6,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        In this page you need to choose a year and country and the rank of the conutry in this year appears on the screen. <br />
-        <strong>PAY ATTENTION:</strong> you need to write the name of the country perfectly (with a big letter at the begining)
-        It's Important!
+        in this page you need to choose a year, countries and measures. 
     </div>
 </div>
 
@@ -22,8 +20,12 @@
             <td>                    {{ form.year }}       </td>
         </tr>
         <tr>
-            <td class="input text"> {{ form.name.label }} </td>
-            <td>                    {{ form.name }}       </td>
+            <td class="input text"> {{ form.country_mselect.label }} </td>
+            <td>                    {{ form.country_mselect }}       </td>
+        </tr>
+        <tr>
+            <td class="input text"> {{ form.measures_mselect.label }} </td>
+            <td>                    {{ form.measures_mselect }}       </td>
         </tr>
         <tr>
             <td class="input submit"> <input type="submit" value="Search"> </td>
@@ -31,10 +33,14 @@
     </table>
 </form>
 
-<p><h1>Rank of {{Country}} is : <b>{{name}}</b></h1></p>
 
-<h3> Table of {{ Years }} : </h3>
-{{ raw_data_table | safe}}
+<div class="row">
+    <div class="col-md-8">
+        <img src={{ chart }} class="img-thumbnail" alt="not found" height={{height}} width={{ width }}>
+    </div>
+</div>
+
+
 
 
     {% endblock %}

@@ -6,7 +6,7 @@ from datetime import datetime
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms import Form, BooleanField, PasswordField, IntegerField, SelectField
+from wtforms import Form, BooleanField, PasswordField, IntegerField, SelectField, SelectMultipleField
 from wtforms import TextField, TextAreaField, SelectField
 from wtforms.fields.html5 import DateField
 from wtforms import validators, ValidationError
@@ -23,7 +23,12 @@ from wtforms.validators import DataRequired
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class QueryFormStructure(FlaskForm):
-    name   = StringField('Country Name:  ' , validators = [DataRequired()])
+    ##name   = StringField('Country Name:  ' , validators = [DataRequired()])
+    ##fxl = SelectField('head/ tail' , choices=[('head', 'head'), ('tail', 'tail')])
+    ##fxl_num = IntegerField('num:  ' , validators = [DataRequired()])
+    ##measures_mselect = SelectMultipleField('Select Multiple:', choices = [('Score', 'Score'),('GDP per Capita', 'GDP per Capita'),('Healthy life expectancy', 'Healthy life expectancy'),('Freedom to make life choices', 'Freedom to make life choices'),('Generosity', 'Generosity')])
+    measures_mselect = SelectMultipleField('Select Multiple:')
+    country_mselect = SelectMultipleField('Select Multiple:' , validators = [DataRequired] )
     year = SelectField('Year: ', choices = [('2016', '2016'),('2018', '2018'),('2019', '2019')])
     submit = SubmitField('Submit')
     
@@ -64,7 +69,7 @@ class UserRegistrationFormStructure(FlaskForm):
     EmailAddr  = StringField('E-Mail:  ' , validators = [DataRequired()])
     username   = StringField('User name:  ' , validators = [DataRequired()])
     password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
-    date = DateField('Date: ', format='%Y-%m-%d', validators = [DataRequired()])
+    date = DateField('Date: ' , format='%Y-%m-%d' , validators = [DataRequired])
     submit = SubmitField('Submit')
 
 ## This class have the fields that the user can set, to have the query parameters for analysing the data

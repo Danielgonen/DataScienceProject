@@ -36,6 +36,11 @@ from wtforms import ValidationError
 from MyProjectWHR.Models.QueryFormStructure import QueryFormStructure 
 from MyProjectWHR.Models.QueryFormStructure import LoginFormStructure 
 from MyProjectWHR.Models.QueryFormStructure import UserRegistrationFormStructure 
+from MyProjectWHR.Models.plot_service_functions import get_countries_choices
+from MyProjectWHR.Models.plot_service_functions import get_choices_choices
+from MyProjectWHR.Models.plot_service_functions import plot_to_img
+
+
 
 ###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
 
@@ -75,18 +80,31 @@ def about():
 @app.route('/Query', methods=['GET', 'POST'])
 def Query():
 
-    Name = None
-    Country = ''
-    rank = ''
+    ##Name = None
+    ##Country = ''
+    ##rank = ''
     Years = ''
+    chart = ''
+    ##FXL = ''
+    country_choices = ''
+    choices_choices = ''
     
     df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
     df = df.set_index('Country')
 
     form = QueryFormStructure(request.form)
     raw_data_table = ''
+
+    country_choices = get_countries_choices(df)
+    form.country_mselect.choices = country_choices
     
+    choices_choices = get_choices_choices()
+    form.measures_mselect.choices = choices_choices
+
     if (request.method == 'POST' ):
+        
+        Years = form.year.data
+
         if (form.year.data == '2016'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
         elif (form.year.data == '2018'):
@@ -94,27 +112,56 @@ def Query():
         elif (form.year.data == '2019'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2019.csv'))
 
-        raw_data_table = df.to_html(classes = 'table table-hover')
+        ##raw_data_table = df.to_html(classes = 'table table-hover')
+        ##df = df.set_index('Country')
+        ##name = form.name.data
+        
+        ##df = df[(form.measures_mselect.data)]
+        ##df = df.loc[:, 'Country', form.measures_mselect.data]
+
+        ###df = df.loc[:, ['Country', (form.measures_mselect.data)]]
+
+        ##df = df.groupby('Country').sum()
+        ##df = df.loc[:, (form.measures_mselect.data)]
+        ##df = df.loc[(form.country_mselect.data)]
+        ##df = df.transpose()
+
+        ##df = df.groupby('Country').sum()
         df = df.set_index('Country')
-        name = form.name.data
-        Years = form.year.data
-        Country = name
-        if (name in df.index):
-            rank = df.loc[name,'Happiness Rank']
-        else:
-            rank = name + ', no such country'
-        form.name.data = ''
+        df = df[(form.measures_mselect.data)]
+        df = df.loc[(form.country_mselect.data)]
+        ##df = df.transpose()
+
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        df.plot(ax = ax , kind = 'barh', figsize=(15, 5))
+        chart = plot_to_img(fig)
+
+
+        ##Country = name
+        ##if (name in df.index):
+            ##rank = df.loc[name,'Happiness Rank']
+        ##else:
+            ##rank = name + ', no such country'
+        ##form.name.data = ''
+
+        ##raw_data_table = df.to_html(classes = 'table table-hover')
 
 
     return render_template('Query.html', 
             form = form, 
-            name = rank, 
+            ##name = rank, 
             Years = Years,
-            Country = Country,
-            raw_data_table = raw_data_table,
+            ##FXL = FXL,
+            ##Country = Country,
+            ##raw_data_table = raw_data_table,
             title='Query by the user',
             year=datetime.now().year,
-            message='This page will use the web forms to get user input'
+            message='This page will use the web forms to get user input',
+            chart = chart ,
+            height = "300" ,
+            width = "750"
+
         )
 
 # -------------------------------------------------------
@@ -218,4 +265,5 @@ def WHR2016():
         raw_data_table = raw_data_table,
         message='Happiness rank and scores by country, 2016.'
     )
+
 
