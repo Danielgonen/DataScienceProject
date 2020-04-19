@@ -1,6 +1,7 @@
-EmailAddr,FirstName,LastName,PhoneNum,password,username,date
-dd,dd,dd,dd,dd,dd,
-גכג,גכג,גכג,גכג,גכגכ,גכגכ,
-ss,ss,ss,ss,ss,ss,
-ll,ll,ll,88,ll,ll,
-d,d,d,1,d,d,
+EmailAddr,FirstName,LastName,PhoneNum,password,username
+dd,dd,dd,dd,dd,dd
+גכג,גכג,גכג,גכג,גכגכ,גכגכ
+ss,ss,ss,ss,ss,ss
+ll,ll,ll,88,ll,ll
+d,d,d,1,d,d
+ee,ee,ee,12,ee,ee
