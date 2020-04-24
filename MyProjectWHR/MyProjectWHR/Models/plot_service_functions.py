@@ -15,6 +15,7 @@ def get_countries_choices(df):
     df1 = df1.groupby('Country').sum()
     l = df1.index
     m = list(zip(l , l))
+    m.remove(('Belize', 'Belize'))
     return m
 
 def get_choices_choices():
@@ -28,6 +29,10 @@ def plot_to_img(fig):
     pngImageB64String = "data:image/png;base64,"
     pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return pngImageB64String
+
+    
+    
+    
 
 
 ##if (form.year.data == '2016'):

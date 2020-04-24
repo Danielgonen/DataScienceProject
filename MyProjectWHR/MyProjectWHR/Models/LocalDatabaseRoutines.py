@@ -4,6 +4,8 @@ Used structures and classes
 from os import path
 import json
 import pandas as pd
+from MyProjectWHR.Models.QueryFormStructure import QueryFormStructure 
+
 
 def create_LocalDatabaseServiceRoutines():
     return LocalDatabaseServiceRoutines()
@@ -13,6 +15,8 @@ class LocalDatabaseServiceRoutines(object):
         self.name = 'Data base service routines'
         self.index = {}
         self.UsersDataFile = path.join(path.dirname(__file__), '..\\static\\Data\\users.csv')
+        
+        
 
 # -------------------------------------------------------
 # Read users data into a dataframe
@@ -48,6 +52,7 @@ class LocalDatabaseServiceRoutines(object):
 
         df = df.set_index('password')
         return (Password in df.index.values)
+
      
 # -------------------------------------------------------
 # Add a new user to the DB

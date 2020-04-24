@@ -64,7 +64,7 @@ def contact():
         'contact.html',
         title='Contact',
         year=datetime.now().year,
-        message='Your contact page.'
+        message='My contact page.'
     )
 
 @app.route('/about')
@@ -74,7 +74,7 @@ def about():
         'about.html',
         title='About',
         year=datetime.now().year,
-        message='Your application description page.'
+        message='My application description page.'
     )
 
 @app.route('/Query', methods=['GET', 'POST'])
@@ -127,6 +127,7 @@ def Query():
         ##df = df.transpose()
 
         ##df = df.groupby('Country').sum()
+
         df = df.set_index('Country')
         df = df[(form.measures_mselect.data)]
         df = df.loc[(form.country_mselect.data)]
