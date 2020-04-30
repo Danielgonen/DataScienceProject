@@ -77,15 +77,18 @@ def about():
         message='My application description page.'
     )
 
+
+# -------------------------------------------------------
+# data analysing of the datasets 
+# quary
+# -------------------------------------------------------
+
 @app.route('/Query', methods=['GET', 'POST'])
 def Query():
 
-    ##Name = None
-    ##Country = ''
-    ##rank = ''
+
     Years = ''
     chart = ''
-    ##FXL = ''
     country_choices = ''
     choices_choices = ''
     
@@ -105,6 +108,10 @@ def Query():
         
         Years = form.year.data
 
+# -------------------------------------------------------
+# checking which year the user chose
+# -------------------------------------------------------
+
         if (form.year.data == '2016'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
         elif (form.year.data == '2018'):
@@ -112,50 +119,25 @@ def Query():
         elif (form.year.data == '2019'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2019.csv'))
 
-        ##raw_data_table = df.to_html(classes = 'table table-hover')
-        ##df = df.set_index('Country')
-        ##name = form.name.data
-        
-        ##df = df[(form.measures_mselect.data)]
-        ##df = df.loc[:, 'Country', form.measures_mselect.data]
-
-        ###df = df.loc[:, ['Country', (form.measures_mselect.data)]]
-
-        ##df = df.groupby('Country').sum()
-        ##df = df.loc[:, (form.measures_mselect.data)]
-        ##df = df.loc[(form.country_mselect.data)]
-        ##df = df.transpose()
-
-        ##df = df.groupby('Country').sum()
-
-        df = df.set_index('Country')
+# -------------------------------------------------------
+# creating the graph
+# -------------------------------------------------------
+        df = df.set_index('Country')  
         df = df[(form.measures_mselect.data)]
         df = df.loc[(form.country_mselect.data)]
-        ##df = df.transpose()
 
+# -------------------------------------------------------
+# the graph as picture form
+# -------------------------------------------------------
         fig = plt.figure()
         ax = fig.add_subplot(111)
         df.plot(ax = ax , kind = 'barh', figsize=(15, 5))
         chart = plot_to_img(fig)
 
 
-        ##Country = name
-        ##if (name in df.index):
-            ##rank = df.loc[name,'Happiness Rank']
-        ##else:
-            ##rank = name + ', no such country'
-        ##form.name.data = ''
-
-        ##raw_data_table = df.to_html(classes = 'table table-hover')
-
-
     return render_template('Query.html', 
             form = form, 
-            ##name = rank, 
             Years = Years,
-            ##FXL = FXL,
-            ##Country = Country,
-            ##raw_data_table = raw_data_table,
             title='Query by the user',
             year=datetime.now().year,
             message='This page will use the web forms to get user input',
@@ -224,6 +206,10 @@ def data():
         year=datetime.now().year,
         message='Main Data Model'
     )
+
+# -------------------------------------------------------
+# Data sets:
+# -------------------------------------------------------
 
 @app.route('/WHR2019')
 def WHR2019():
