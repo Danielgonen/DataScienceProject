@@ -5,7 +5,7 @@ from os import path
 import json
 import pandas as pd
 from MyProjectWHR.Models.QueryFormStructure import QueryFormStructure 
-
+# -------------------------------------------------------
 
 def create_LocalDatabaseServiceRoutines():
     return LocalDatabaseServiceRoutines()
@@ -16,8 +16,6 @@ class LocalDatabaseServiceRoutines(object):
         self.index = {}
         self.UsersDataFile = path.join(path.dirname(__file__), '..\\static\\Data\\users.csv')
         
-        
-
 # -------------------------------------------------------
 # Read users data into a dataframe
 # -------------------------------------------------------

@@ -7,11 +7,9 @@ import matplotlib.pyplot as plt
 from os import path
 import io
 
-
 # -------------------------------------------------------
 # countries as a list
 # -------------------------------------------------------
-
 def get_countries_choices(df):
     df1 = df.rename(columns={'Country/Region': 'Country'})
     df1 = df1.groupby('Country').sum()
@@ -21,9 +19,8 @@ def get_countries_choices(df):
     return m
 
 # -------------------------------------------------------
-# benchmarks as a list
+# measures as a list
 # -------------------------------------------------------
-
 def get_choices_choices():
     l = (["Score", "GDP per Capita", "Healthy life expectancy", "Freedom to make life choices", "Generosity"])
     m = list(zip(l , l))
@@ -32,11 +29,27 @@ def get_choices_choices():
 # -------------------------------------------------------
 # graph to img form
 # -------------------------------------------------------
-
 def plot_to_img(fig):
     pngImage = io.BytesIO()
     FigureCanvas(fig).print_png(pngImage)
     pngImageB64String = "data:image/png;base64,"
     pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return pngImageB64String
+
+# -------------------------------------------------------
+# fixing the datasets
+# -------------------------------------------------------
+def fix_dataset(df):
+    df1 = df.rename(columns={'Country/Region': 'Country'})
+    df1 = df1.groupby('Country').sum()
+    l = df1.index
+    m = list(zip(l , l))
+
+    dff = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2018.csv'))
+    dff1 = dff.groupby('Country').sum()
+    ll = dff1.index
+    mm = list(zip(ll , ll))
+
+
+
 

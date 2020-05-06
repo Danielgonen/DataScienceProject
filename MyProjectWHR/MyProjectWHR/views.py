@@ -1,3 +1,8 @@
+# -------------------------------------------------------
+# Daniel Gonen
+# World Happiness Report
+# -------------------------------------------------------
+
 """
 Routes and views for the flask application.
 """
@@ -7,12 +12,7 @@ from flask import render_template
 from MyProjectWHR import app
 from MyProjectWHR.Models.LocalDatabaseRoutines import create_LocalDatabaseServiceRoutines
 
-
-from datetime import datetime
-from flask import render_template, redirect, request
-
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 import numpy as np
@@ -27,26 +27,24 @@ import base64
 
 from os import path
 
-from flask   import Flask, render_template, flash, request
+from flask   import Flask, render_template, flash, request, redirect
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
 from wtforms import ValidationError
 
 
-from MyProjectWHR.Models.QueryFormStructure import QueryFormStructure 
-from MyProjectWHR.Models.QueryFormStructure import LoginFormStructure 
-from MyProjectWHR.Models.QueryFormStructure import UserRegistrationFormStructure 
+from MyProjectWHR.Models.QueryFormStructure     import QueryFormStructure 
+from MyProjectWHR.Models.QueryFormStructure     import LoginFormStructure 
+from MyProjectWHR.Models.QueryFormStructure     import UserRegistrationFormStructure 
 from MyProjectWHR.Models.plot_service_functions import get_countries_choices
 from MyProjectWHR.Models.plot_service_functions import get_choices_choices
 from MyProjectWHR.Models.plot_service_functions import plot_to_img
 
-
-
-###from DemoFormProject.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser 
-
 db_Functions = create_LocalDatabaseServiceRoutines() 
 
-
+# -------------------------------------------------------
+# Home page
+# -------------------------------------------------------
 @app.route('/')
 @app.route('/home')
 def home():
@@ -57,6 +55,9 @@ def home():
         year=datetime.now().year,
     )
 
+# -------------------------------------------------------
+# Contact page
+# -------------------------------------------------------
 @app.route('/contact')
 def contact():
     """Renders the contact page."""
@@ -67,6 +68,9 @@ def contact():
         message='My contact page.'
     )
 
+# -------------------------------------------------------
+# About page
+# -------------------------------------------------------
 @app.route('/about')
 def about():
     """Renders the about page."""
@@ -77,16 +81,12 @@ def about():
         message='My application description page.'
     )
 
-
 # -------------------------------------------------------
 # data analysing of the datasets 
 # quary
 # -------------------------------------------------------
-
 @app.route('/Query', methods=['GET', 'POST'])
 def Query():
-
-
     Years = ''
     chart = ''
     country_choices = ''
@@ -105,13 +105,9 @@ def Query():
     form.measures_mselect.choices = choices_choices
 
     if (request.method == 'POST' ):
-        
         Years = form.year.data
 
-# -------------------------------------------------------
 # checking which year the user chose
-# -------------------------------------------------------
-
         if (form.year.data == '2016'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2016.csv'))
         elif (form.year.data == '2018'):
@@ -119,21 +115,16 @@ def Query():
         elif (form.year.data == '2019'):
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2019.csv'))
 
-# -------------------------------------------------------
-# creating the graph
-# -------------------------------------------------------
+# creating the base to the graph
         df = df.set_index('Country')  
         df = df[(form.measures_mselect.data)]
         df = df.loc[(form.country_mselect.data)]
 
-# -------------------------------------------------------
 # the graph as picture form
-# -------------------------------------------------------
         fig = plt.figure()
         ax = fig.add_subplot(111)
         df.plot(ax = ax , kind = 'barh', figsize=(15, 5))
         chart = plot_to_img(fig)
-
 
     return render_template('Query.html', 
             form = form, 
@@ -158,9 +149,7 @@ def Register():
         if (not db_Functions.IsUserExist(form.username.data)):
             db_Functions.AddNewUser(form)
             db_table = ""
-
             flash('Thanks for registering new user - '+ form.FirstName.data + " " + form.LastName.data )
-            # Here you should put what to do (or were to go) if registration was good
         else:
             flash('Error: User with this Username already exist ! - '+ form.username.data)
             form = UserRegistrationFormStructure(request.form)
@@ -196,7 +185,9 @@ def Login():
         repository_name='Pandas',
         )
 
-
+# -------------------------------------------------------
+# Data Model Page
+# -------------------------------------------------------
 @app.route('/data')
 def data():
     """Renders the about page."""
