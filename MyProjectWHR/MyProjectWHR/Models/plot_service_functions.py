@@ -15,7 +15,16 @@ def get_countries_choices(df):
     df1 = df1.groupby('Country').sum()
     l = df1.index
     m = list(zip(l , l))
+    m.remove(('Angola', 'Angola'))
     m.remove(('Belize', 'Belize'))
+    m.remove(('Comoros', 'Comoros'))
+    m.remove(('Macedonia', 'Macedonia'))
+    m.remove(('North Cyprus', 'North Cyprus'))
+    m.remove(('Puerto Rico', 'Puerto Rico'))
+    m.remove(('Somaliland Region', 'Somaliland Region'))    
+    m.remove(('Sudan', 'Sudan'))
+    m.remove(('Suriname', 'Suriname'))
+    m.remove(('Trinidad and Tobago', 'Trinidad and Tobago'))
     return m
 
 # -------------------------------------------------------
@@ -49,6 +58,16 @@ def fix_dataset(df):
     dff1 = dff.groupby('Country').sum()
     ll = dff1.index
     mm = list(zip(ll , ll))
+
+    count = 0;
+
+    for x in m:
+        for y in mm:
+            if x == y:
+                count = count + 1
+        if count != 1:
+            print(x)
+        count = 0
 
 
 
