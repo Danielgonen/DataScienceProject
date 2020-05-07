@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 from os import path
 import io
 
-# -------------------------------------------------------
-# countries as a list
-# -------------------------------------------------------
+# ------------------------------------------------------------------------
+# countries as a list, revoming countries that aren't in all the datasets
+# ------------------------------------------------------------------------
 def get_countries_choices(df):
     df1 = df.rename(columns={'Country/Region': 'Country'})
     df1 = df1.groupby('Country').sum()

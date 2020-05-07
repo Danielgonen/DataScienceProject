@@ -9,6 +9,7 @@
 {% if messages %}
     {% for message in messages %}
 <h3>{{ message[1] }}</h3>
+<a class="btn btn-default" href="{{ url_for('Login') }}">link to the login page</a>
 <br />
     {% endfor %}
 {% endif %}
