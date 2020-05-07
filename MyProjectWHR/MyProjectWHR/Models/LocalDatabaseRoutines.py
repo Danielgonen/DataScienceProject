@@ -5,8 +5,10 @@ from os import path
 import json
 import pandas as pd
 from MyProjectWHR.Models.QueryFormStructure import QueryFormStructure 
-# -------------------------------------------------------
 
+# -------------------------------------------------------
+# LocalDatabaseServiceRoutines
+# -------------------------------------------------------
 def create_LocalDatabaseServiceRoutines():
     return LocalDatabaseServiceRoutines()
 

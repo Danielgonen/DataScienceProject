@@ -98,6 +98,7 @@ def Query():
     form = QueryFormStructure(request.form)
     raw_data_table = ''
 
+# puts the choices into select fields
     country_choices = get_countries_choices(df)
     form.country_mselect.choices = country_choices
     
@@ -116,9 +117,9 @@ def Query():
             df = pd.read_csv(path.join(path.dirname(__file__), 'static\\Data\\2019.csv'))
 
 # creating the base to the graph
-        df = df.set_index('Country')  
-        df = df[(form.measures_mselect.data)]
-        df = df.loc[(form.country_mselect.data)]
+        df = df.set_index('Country')  #Set the DataFrame index using existing columns
+        df = df[(form.measures_mselect.data)]  #filter the selected dataset by the user choices
+        df = df.loc[(form.country_mselect.data)] #filter the selected dataset by the user choices
 
 # the graph as picture form
         fig = plt.figure()
@@ -173,7 +174,7 @@ def Login():
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
             flash('Login approved!')
-            return redirect('Query')
+            return redirect('Query') #move to query page
         else:
             flash('Error in - Username and/or password')
    
