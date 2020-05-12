@@ -15,6 +15,9 @@ from MyProjectWHR.Models.LocalDatabaseRoutines import create_LocalDatabaseServic
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 
+from flask_bootstrap import Bootstrap
+bootstrap = Bootstrap(app)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd

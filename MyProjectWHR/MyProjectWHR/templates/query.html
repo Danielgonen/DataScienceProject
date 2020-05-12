@@ -1,14 +1,11 @@
 ﻿{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
 
 <h2>{{title}}</h2>
 
-<div class="row">
-    <div class="col-md-6">
-        in this page you need to choose a year, countries and measures. 
-    </div>
-</div>
+<h3>In this page you need to choose a year, countries and measures.</h3>
 
 <div class="row">
     <div class="col-md-12">
@@ -22,27 +19,17 @@
 
 <br />
 
-<form method=post>
-    {{ form.csrf }}
-    <table>
-        <tr>
-            <td class="input text"> {{ form.year.label }} </td>
-            <td>                    {{ form.year }}       </td>
-        </tr>
-        <tr>
-            <td class="input text"> {{ form.country_mselect.label }} </td>
-            <td>                    {{ form.country_mselect }}       </td>
-        </tr>
-        <tr>
-            <td class="input text"> {{ form.measures_mselect.label }} </td>
-            <td>                    {{ form.measures_mselect }}       </td>
-        </tr>
-        <tr>
-            <td class="input submit"> <input type="submit" value="Search"> </td>
-        </tr>
-    </table>
-</form>
+<div class="col-md-2">
+    <form method="post">
+        {{ form.csrf_token }}
+        {{ wtf.form_field(form.year)}}
+        {{ wtf.form_field(form.country_mselect)}}
+        {{ wtf.form_field(form.measures_mselect)}}
+        <input class="btn btn-primary" type="submit" value="submit">
+    </form>
+</div>
 
+<br />
 
 <div class="row">
     <div class="col-md-8">
