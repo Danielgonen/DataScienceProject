@@ -124,7 +124,7 @@ def Query():
         df = df[(form.measures_mselect.data)]  #filter the selected dataset by the user choices
         df = df.loc[(form.country_mselect.data)] #filter the selected dataset by the user choices
 
-# the graph as picture form
+# creates the graph and converts the graph to a picture form
         fig = plt.figure()
         ax = fig.add_subplot(111)
         df.plot(ax = ax , kind = 'barh', figsize=(15, 5))
