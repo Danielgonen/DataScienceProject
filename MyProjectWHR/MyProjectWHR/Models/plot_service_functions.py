@@ -8,13 +8,15 @@ from os import path
 import io
 
 # ------------------------------------------------------------------------
-# countries as a list, revoming countries that aren't in all the datasets
+# Countries as a list, revoming countries that aren't in all the datasets
 # ------------------------------------------------------------------------
 def get_countries_choices(df):
-    df1 = df.rename(columns={'Country/Region': 'Country'})
-    df1 = df1.groupby('Country').sum()
-    l = df1.index
-    m = list(zip(l , l))
+    df1 = df.rename(columns={'Country/Region': 'Country'}) #Rename
+    df1 = df1.groupby('Country').sum() #All the df is organized by the order of the abc of the countries.
+    l = df1.index #Indexing in pandas means simply selecting particular rows and columns of data from a DataFrame. 
+    m = list(zip(l , l)) #Turning into a list
+
+    #now i'm removing all the countries that aren't present in all the 3 datasets.
     m.remove(('Angola', 'Angola'))
     m.remove(('Belize', 'Belize'))
     m.remove(('Comoros', 'Comoros'))
@@ -25,10 +27,11 @@ def get_countries_choices(df):
     m.remove(('Sudan', 'Sudan'))
     m.remove(('Suriname', 'Suriname'))
     m.remove(('Trinidad and Tobago', 'Trinidad and Tobago'))
-    return m
+    
+    return m #returning the list
 
 # -------------------------------------------------------
-# measures as a list
+# Measures as a list
 # -------------------------------------------------------
 def get_choices_choices():
     l = (["Score", "GDP per Capita", "Healthy life expectancy", "Freedom to make life choices", "Generosity"])
@@ -36,17 +39,17 @@ def get_choices_choices():
     return m
 
 # -------------------------------------------------------
-# graph to img form
+# Graph to img form
 # -------------------------------------------------------
-def plot_to_img(fig):
-    pngImage = io.BytesIO()
+def plot_to_img(fig): 
+    pngImage = io.BytesIO() 
     FigureCanvas(fig).print_png(pngImage)
     pngImageB64String = "data:image/png;base64,"
     pngImageB64String += base64.b64encode(pngImage.getvalue()).decode('utf8')
     return pngImageB64String
 
 # -------------------------------------------------------
-# fixing the datasets
+# Fixing the datasets. There are some countries that aren't present in all the datasets. this function is made to find them. 
 # -------------------------------------------------------
 def fix_dataset(df):
     df1 = df.rename(columns={'Country/Region': 'Country'})

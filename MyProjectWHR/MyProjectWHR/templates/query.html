@@ -22,9 +22,13 @@
 <div class="col-md-2">
     <form method="post">
         {{ form.csrf_token }}
+
         {{ wtf.form_field(form.year)}}
+
         {{ wtf.form_field(form.country_mselect)}}
+
         {{ wtf.form_field(form.measures_mselect)}}
+
         <input class="btn btn-primary" type="submit" value="submit">
     </form>
 </div>
